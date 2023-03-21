@@ -35,7 +35,7 @@ function JewelDetail({route, navigation}){
         setNote(jewel!= undefined ?jewel.note : '')
         setWeight(jewel!= undefined ?JSON.stringify(jewel.weight) : '')
         setIsJewel(jewel == undefined ? false : true)
-    },[route])
+    },[])
 
     useEffect(()=>{
         if (jewelType!= "Selecione Joya"){

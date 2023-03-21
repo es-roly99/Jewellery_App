@@ -64,8 +64,7 @@ function Home({navigation}){
 
                     <TouchableOpacity style = {Object.assign({},style.flexCenter, style.buttonAddJewell, style.minShadow)}
                     onPress ={() => {
-                        create()
-                        //navigation.navigate('AddJewel', {jewel:undefined})
+                        navigation.navigate('AddJewel', {jewel:undefined})
                     }}>
                     <FontAwesomeIcon  
                         style = {style.flexCenter} color = {colors.white}
