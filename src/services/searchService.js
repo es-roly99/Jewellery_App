@@ -1,5 +1,4 @@
 export function getAviableId(ids, range){
-    
     let v = range[0]
     let aviableIds = []
 
@@ -22,6 +21,16 @@ export function getAviableId(ids, range){
         }
     }
     return aviableIds
+}
+
+
+export function searchById(list, id){
+    for(let x in list){
+        const idX =  list[x].jewelId
+        if (idX == id){
+            return list[x]
+        }
+    }
 }
 
 

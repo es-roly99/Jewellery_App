@@ -1,89 +1,114 @@
 import React, { useState, useEffect } from 'react';
-import {TextInput, TouchableOpacity } from 'react-native';
-import {ScrollView, Text, View, FlatList} from 'react-native';
-import style from '../styles/style';
+import { TextInput, TouchableOpacity, Text } from 'react-native';
+import { ScrollView, View } from 'react-native';
+import generalStyles from '../styles/generalStyles';
 import listStyle from '../styles/listStyle';
 import SelectDropdown from 'react-native-select-dropdown'
 import ListItem from '../components/ListItem'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
-import { faAngleDown, faAngleUp, faPlus} from '@fortawesome/free-solid-svg-icons';
+import { faAngleDown, faAngleUp, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { colors, JEWELS } from '../Constants';
-import { create, getJewels } from '../services/jewelService';
+import { getJewels } from '../services/jewelService';
+import { searchById } from '../services/jewelService'
+import LoadingScreen from '../components/LoadingScreen';
 
-
-function Home({navigation}){
+function Home({ navigation }) {
 
     const [jewels, setJewels] = useState([])
+    const [jewelType, setJewelType] = useState("Todas")
+    const [isLoading, setIsLoading] = useState(true)
+    const [searchId, setSearchId] = useState()
 
     useEffect(() => {
         getJewels("").then((jewels) => {
             setJewels(jewels)
+            setIsLoading(false)
         })
-    },[])
-
+        setSearchId("")
+        setJewelType("Todas")
+    }, [])
 
     return (
         <ScrollView horizontal={false} style={{ width: "100%" }}>
-                        
-            <View style = {Object.assign({},style.flexBetween, style.area)}>
-                
-                <View style = {style.flexLeft}>
-                    <SelectDropdown 
-                        renderDropdownIcon={isOpened=>{return<FontAwesomeIcon icon={isOpened ? faAngleUp:faAngleDown} color={'#444'} size={14}/>}}
-                        dropdownIconPosition={'right'}
-                        
-                        dropdownStyle={style.dropDownMenu}
-                        rowStyle={style.dropDownMenuRow}
-                        rowTextStyle={style.dropDownMenuRowText}
-                        buttonStyle={style.dropDownMenuButton}
-                        buttonTextStyle={style.dropDownMenuButtonText}
 
-                        data = {["Todas", "Anillos", "Argollas", "Dijes", "Pulsos", "Cadenas"]}
-                        defaultValue = {"Todas"}
-                        onSelect={(selectedItem, index) => {
-                            if(index == 0){
-                                getJewels("").then((jewels) => {
+            <View style={Object.assign({}, generalStyles.flexBetween, generalStyles.area)}>
+
+                <View style={generalStyles.flexLeft}>
+                    <SelectDropdown
+                        renderDropdownIcon={isOpened => { return <FontAwesomeIcon icon={isOpened ? faAngleUp : faAngleDown} color={'#444'} size={14} /> }}
+                        dropdownIconPosition={'right'}
+
+                        dropdownStyle={generalStyles.dropDownMenu}
+                        rowStyle={generalStyles.dropDownMenuRow}
+                        rowTextStyle={generalStyles.dropDownMenuRowText}
+                        buttonStyle={generalStyles.dropDownMenuButton}
+                        buttonTextStyle={generalStyles.dropDownMenuButtonText}
+
+                        data={["Todas", "Anillos", "Argollas", "Dijes", "Pulsos", "Cadenas"]}
+                        defaultValue={jewelType}
+                        onSelect={async (selectedItem, index) => {
+                            setIsLoading(true)
+                            setSearchId("")
+                            setJewelType(selectedItem)
+                            if (index == 0) {
+                                await getJewels("").then((jewels) => {
                                     setJewels(jewels)
+                                    setIsLoading(false)
                                 })
                             }
-                            else{
-                                getJewels(JEWELS[selectedItem]).then((jewels) => {
+                            else {
+                                await getJewels(JEWELS[selectedItem]).then((jewels) => {
                                     setJewels(jewels)
+                                    setIsLoading(false)
                                 })
                             }
                         }}
                     />
-                 </View>
+                </View>
 
-                <View style = {Object.assign({}, style.minShadow, style.flexRight)}>
+                <View style={Object.assign({}, generalStyles.minShadow, generalStyles.flexRight)}>
                     <TextInput
-                    style = {style.search}
-                    placeholder="Id"
-                    keyboardType='numeric'
-                    maxLength={3}/>
+                        style={generalStyles.search}
+                        placeholder="Id"
+                        keyboardType='numeric'
+                        value={searchId}
+                        maxLength={3}
+                        onChangeText={(text) => setSearchId(text)}
+                        onSubmitEditing={async () => {
+                            setIsLoading(true)
+                            await searchById(searchId).then((x) => {
+                                setJewels(x)
+                                setIsLoading(false)
+                            })
+                        }}
+                    />
 
-                    <TouchableOpacity style = {Object.assign({},style.flexCenter, style.buttonAddJewell, style.minShadow)}
-                    onPress ={() => {
-                        navigation.navigate('AddJewel', {jewel:undefined})
-                    }}>
-                    <FontAwesomeIcon  
-                        style = {style.flexCenter} color = {colors.white}
-                        size= {25}
-                        icon={faPlus}>
-                    </FontAwesomeIcon>
+                    <TouchableOpacity style={Object.assign({}, generalStyles.flexCenter, generalStyles.buttonAddJewell, generalStyles.minShadow)}
+                        onPress={() => {
+                            navigation.navigate('AddJewel', { jewel: undefined })
+                        }}>
+                        <FontAwesomeIcon
+                            style={generalStyles.flexCenter} color={colors.white}
+                            size={25}
+                            icon={faPlus}>
+                        </FontAwesomeIcon>
                     </TouchableOpacity>
-                 </View>
+                </View>
             </View>
 
 
             <View style={listStyle.viewList}>
                 {
-                    jewels.map((item) => {if(item.description != "") return <ListItem key={item.id} jewel={item} navigation={navigation}/>})
+                    isLoading ?
+                        <LoadingScreen /> : jewels.length != 0 ?
+                            jewels.map((item) => { if (item.description != "") return <ListItem key={item.id} jewel={item} navigation={navigation} /> }) :
+                            <Text style={generalStyles.text}>No hay coincidencias</Text>
+
                 }
             </View>
 
         </ScrollView>
     );
-  }
-  
-  export default Home;
+}
+
+export default Home;

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {ScrollView, Text, View, FlatList} from 'react-native';
-import style from '../styles/style';
+import generalStyles from '../styles/generalStyles';
 import listStyle from '../styles/listStyle';
 import ListItem from '../components/ListItem'
 

@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { SafeAreaView} from 'react-native';
 import { NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import style from './src/styles/style';
+import generalStyles from './src/styles/generalStyles';
 import Home from './src/views/Home';
 import Statistics from './src/views/Statistics';
 import Sales from './src/views/Sales'
@@ -13,6 +13,7 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faChartSimple, faCoins, faHome } from "@fortawesome/free-solid-svg-icons";
 import {initDatabase} from './src/services/jewelService'
+import { colors } from "./src/Constants";
 const Drawer = createDrawerNavigator();
 
 export default function App() {  
@@ -27,8 +28,8 @@ export default function App() {
           <StatusBar barStyle={'light-content'} />
     </SafeAreaView>
     
-    <NavigationContainer style = {style.area}>
-      <Drawer.Navigator initialRouteName='Home'>
+    <NavigationContainer style = {generalStyles.area} >
+      <Drawer.Navigator initialRouteName='Home' >
        
         <Drawer.Screen 
         component={Home}

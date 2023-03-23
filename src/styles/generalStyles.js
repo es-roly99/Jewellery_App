@@ -15,36 +15,36 @@ export default StyleSheet.create({
         backgroundColor: colors.gray,
         borderBottomLeftRadius: sizes.radius,
         borderBottomRightRadius: sizes.radius,
-        height: 360
+        height: 360,
     },
     dropDownMenuButton: {
         width: 180,
         height: 50,
         backgroundColor: colors.gray,
         borderRadius: sizes.radius,
-   },
-   dropDownMenuButtonText:{
+    },
+    dropDownMenuButtonText: {
         fontSize: sizes.h1,
         textAlign: "left"
-   },
-   dropDownMenuRow: {
+    },
+    dropDownMenuRow: {
         backgroundColor: colors.gray,
         height: 60,
-   },
-   dropDownMenuRowText: {
+    },
+    dropDownMenuRowText: {
         fontSize: sizes.h1,
         textAlign: "left",
         marginLeft: 15
-   },
+    },
     shadow: {
         shadowColor: '#171717',
-        shadowOffset: {width: -2, height: 4},
+        shadowOffset: { width: -2, height: 4 },
         shadowOpacity: 0.2,
         shadowRadius: 3,
     },
     minShadow: {
         shadowColor: '#171717',
-        shadowOffset: {width: -1, height: 2},
+        shadowOffset: { width: -1, height: 2 },
         shadowOpacity: 0.1,
         shadowRadius: 3
     },
@@ -72,10 +72,11 @@ export default StyleSheet.create({
         width: 50,
         backgroundColor: colors.add,
     },
-    text:{
+    text: {
         fontSize: 18,
         padding: 5,
-        margin: 20,
+        marginVertical: 20,
+        marginHorizontal: 5
     },
     flexLeft: {
         display: 'flex',
@@ -115,7 +116,7 @@ export default StyleSheet.create({
     },
     navbar: {
         marginTop: 30,
-    }, 
+    },
     navbarMenu: {
         margin: 13,
         paddingTop: 15,
@@ -125,6 +126,11 @@ export default StyleSheet.create({
         fontSize: sizes.h1,
         marginHorizontal: 20,
         fontWeight: "bold",
+    },
+    loadingScreen: {
+        width: '100%',
+        height: 500,
     }
+    
 
-  });
+});

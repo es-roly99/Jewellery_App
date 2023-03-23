@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import { ScrollView, TextInput } from 'react-native-gesture-handler';
 import SelectDropdown from 'react-native-select-dropdown';
 import jewelDetailStyle from '../styles/jewelDetailStyle';
-import style from '../styles/style';
+import generalStyles from '../styles/generalStyles';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faAngleDown, faAngleUp} from '@fortawesome/free-solid-svg-icons';
 import { JEWELSID } from '../Constants';
@@ -140,20 +140,20 @@ function JewelDetail({route, navigation}){
 
             <View style = {jewelDetailStyle.viewJewelDetail}>
                 <Text >Nota:</Text>
-                <TextInput style = {Object.assign({},jewelDetailStyle.textInputDetails, style.shadow)} value={note}
+                <TextInput style = {Object.assign({},jewelDetailStyle.textInputDetails, generalStyles.shadow)} value={note}
                 onChangeText = {(text) => setNote(text)}
                 editable= {isJewel ? true : false}
                 />
             </View>
 
-            <View style = {Object.assign({}, jewelDetailStyle.viewJewelDetailLast, style.flexAround)}>
+            <View style = {Object.assign({}, jewelDetailStyle.viewJewelDetailLast, generalStyles.flexAround)}>
                 
-                <TouchableOpacity style = {Object.assign({},jewelDetailStyle.buttonCancel, style.shadow, style.flexCenter)}
+                <TouchableOpacity style = {Object.assign({},jewelDetailStyle.buttonCancel, generalStyles.shadow, generalStyles.flexCenter)}
                 onPress ={() => navigation.navigate('Home')}> 
-                    <Text style = {style.textColorWhite}>Cancelar</Text>
+                    <Text style = {generalStyles.textColorWhite}>Cancelar</Text>
                 </TouchableOpacity>
                 
-                <TouchableOpacity style = {Object.assign({},jewelDetailStyle.buttonSave, style.shadow, style.flexCenter)}
+                <TouchableOpacity style = {Object.assign({},jewelDetailStyle.buttonSave, generalStyles.shadow, generalStyles.flexCenter)}
                 onPress = {()=> {
                     if(jewel == undefined){
                         postJewel(jewelType, id, description, gold, weight, price, note)
@@ -163,7 +163,7 @@ function JewelDetail({route, navigation}){
                     }
                     navigation.navigate('Home')
                 }}>
-                    <Text style = {style.textColorWhite}>Guardar</Text>
+                    <Text style = {generalStyles.textColorWhite}>Guardar</Text>
                 
                 </TouchableOpacity>
             </View>
