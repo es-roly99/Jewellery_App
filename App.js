@@ -3,7 +3,6 @@ import { StatusBar } from 'expo-status-bar';
 import { useEffect } from "react";
 import { SafeAreaView} from 'react-native';
 import { NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import generalStyles from './src/styles/generalStyles';
 import Home from './src/views/Home';
 import Statistics from './src/views/Statistics';
@@ -13,10 +12,11 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faChartSimple, faCoins, faHome } from "@fortawesome/free-solid-svg-icons";
 import {initDatabase} from './src/services/jewelService'
-import { colors } from "./src/Constants";
-const Drawer = createDrawerNavigator();
+
 
 export default function App() {  
+
+  const Drawer = createDrawerNavigator();
 
   useEffect(()=>{
     initDatabase()

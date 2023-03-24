@@ -1,13 +1,14 @@
 import React from 'react';
-import {Text, TouchableOpacity, View, Image, Alert} from 'react-native';
+import {Text, TouchableOpacity, View, Alert} from 'react-native';
 import listStyle from '../styles/listStyle';
 import generalStyles from '../styles/generalStyles';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faEdit } from '@fortawesome/free-regular-svg-icons';
 import { faDollar } from '@fortawesome/free-solid-svg-icons';
 import { deleteJewel } from '../services/jewelService';
+import { saleJewel } from '../services/aditionalService';
 
-function ListItem({jewel, navigation}){
+function ListItemJewel({jewel, navigation}){
 
 
     return (
@@ -37,12 +38,11 @@ function ListItem({jewel, navigation}){
                         Alert.alert("Vender", jewel.description + " $" + jewel.price + ".0", [
                             {
                                 text: 'Cancelar',
-                                onPress: () => console.log('Cancel Pressed'),
                                 style: 'cancel',
                             },
                             {
                                 text: 'OK', 
-                                onPress: () => deleteJewel(jewel.id)
+                                onPress: () => saleJewel(jewel)
                             }
                         ])
                     }>
@@ -58,4 +58,4 @@ function ListItem({jewel, navigation}){
     );
   }
   
-  export default ListItem;
+  export default ListItemJewel;

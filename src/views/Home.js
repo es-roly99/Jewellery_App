@@ -4,32 +4,40 @@ import { ScrollView, View } from 'react-native';
 import generalStyles from '../styles/generalStyles';
 import listStyle from '../styles/listStyle';
 import SelectDropdown from 'react-native-select-dropdown'
-import ListItem from '../components/ListItem'
+import ListItemJewel from '../components/ListItemJewel'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faAngleDown, faAngleUp, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { colors, JEWELS } from '../Constants';
 import { getJewels } from '../services/jewelService';
 import { searchById } from '../services/jewelService'
 import LoadingScreen from '../components/LoadingScreen';
+import { RefreshControl } from 'react-native-gesture-handler';
 
 function Home({ navigation }) {
 
     const [jewels, setJewels] = useState([])
-    const [jewelType, setJewelType] = useState("Todas")
-    const [isLoading, setIsLoading] = useState(true)
+    const [jewelType, setJewelType] = useState()
+    const [isLoading, setIsLoading] = useState()
     const [searchId, setSearchId] = useState()
 
     useEffect(() => {
+        setJewelType("Todas")
+        setIsLoading(true)
         getJewels("").then((jewels) => {
             setJewels(jewels)
             setIsLoading(false)
         })
         setSearchId("")
-        setJewelType("Todas")
     }, [])
 
     return (
         <ScrollView horizontal={false} style={{ width: "100%" }}>
+
+            <RefreshControl
+            progressBackgroundColor="red"
+            tintColor="red"
+            refreshing={()=>{}}
+            onRefresh={()=>{}}/>
 
             <View style={Object.assign({}, generalStyles.flexBetween, generalStyles.area)}>
 
@@ -37,7 +45,6 @@ function Home({ navigation }) {
                     <SelectDropdown
                         renderDropdownIcon={isOpened => { return <FontAwesomeIcon icon={isOpened ? faAngleUp : faAngleDown} color={'#444'} size={14} /> }}
                         dropdownIconPosition={'right'}
-
                         dropdownStyle={generalStyles.dropDownMenu}
                         rowStyle={generalStyles.dropDownMenuRow}
                         rowTextStyle={generalStyles.dropDownMenuRowText}
@@ -101,7 +108,7 @@ function Home({ navigation }) {
                 {
                     isLoading ?
                         <LoadingScreen /> : jewels.length != 0 ?
-                            jewels.map((item) => { if (item.description != "") return <ListItem key={item.id} jewel={item} navigation={navigation} /> }) :
+                            jewels.map((item) => { return <ListItemJewel key={item.id} jewel={item} navigation={navigation} /> }) :
                             <Text style={generalStyles.text}>No hay coincidencias</Text>
 
                 }
