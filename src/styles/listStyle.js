@@ -32,6 +32,16 @@ export default StyleSheet.create({
         marginLeft: 20,
         borderRadius: 5,
         color: colors.sell, 
+    },
+    date: {
+        fontSize: sizes.body,
+        marginRight: 5
+    },
+    separator:{
+        height: 2,
+        backgroundColor: colors.red,
+        borderRadius: sizes.radius,
+        width: '100%'
     }
 
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { TextInput, TouchableOpacity, Text } from 'react-native';
 import { ScrollView, View } from 'react-native';
 import generalStyles from '../styles/generalStyles';
@@ -30,14 +30,19 @@ function Home({ navigation }) {
         setSearchId("")
     }, [])
 
+    function removeJewel(id){
+        setJewels( jewels.filter((jewel) => jewel.id !== id))
+    }
+
+
     return (
         <ScrollView horizontal={false} style={{ width: "100%" }}>
 
             <RefreshControl
-            progressBackgroundColor="red"
-            tintColor="red"
-            refreshing={()=>{}}
-            onRefresh={()=>{}}/>
+                progressBackgroundColor="red"
+                tintColor="red"
+                refreshing={() => { }}
+                onRefresh={() => { }} />
 
             <View style={Object.assign({}, generalStyles.flexBetween, generalStyles.area)}>
 
@@ -108,7 +113,7 @@ function Home({ navigation }) {
                 {
                     isLoading ?
                         <LoadingScreen /> : jewels.length != 0 ?
-                            jewels.map((item) => { return <ListItemJewel key={item.id} jewel={item} navigation={navigation} /> }) :
+                            jewels.map((item) => {return <ListItemJewel key={item.id} jewel={item} navigation={navigation} jewels={jewels} setJewels={setJewels}/>}) :
                             <Text style={generalStyles.text}>No hay coincidencias</Text>
 
                 }

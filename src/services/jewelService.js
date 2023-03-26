@@ -2,33 +2,35 @@ import * as SQLite from 'expo-sqlite'
 
 export function initDatabase() {
   initJewel()
-  // const db = SQLite.openDatabase('Jewellery.db')
-  // db.transaction(tx => {
-  //   tx.executeSql('drop table Sale'),
-  //     null,
-  //     (txObj, res) => console.log(res),
-  //     (txObj, err) => console.log(err)
-  // })
+  const db = SQLite.openDatabase('Jewellery.db')
+  //db.transaction(tx => {
+    //tx.executeSql('DELETE FROM Jewel where jewelId = 502'),
+    // tx.executeSql('drop table Sale'),
+      // null,
+      // (txObj, res) => console.log(res),
+      // (txObj, err) => console.log(err)
+  //})
   initSales()
 }
 
-export async function initJewel(){
+export async function initJewel() {
   const db = SQLite.openDatabase('Jewellery.db')
+
   db.transaction(tx => {
     tx.executeSql('CREATE TABLE IF NOT EXISTS Jewel (id INTEGER PRIMARY KEY AUTOINCREMENT, jewelType TEXT ,jewelId INTEGER, description TEXT, gold INTEGER, weight REAL, price INTEGER, note TEXT)'),
       null,
-      (txObj, res) => resolve(res.rows._array),
+      (txObj, res) => console.log(res),
       (txObj, err) => console.log(err)
   })
 }
 
-export async function initSales(){
+export async function initSales() {
   const db = SQLite.openDatabase('Jewellery.db')
   db.transaction(tx => {
-    tx.executeSql('CREATE TABLE IF NOT EXISTS Sale (id INTEGER PRIMARY KEY AUTOINCREMENT, jewelType TEXT ,jewelId INTEGER, description TEXT, gold INTEGER, weight REAL, price INTEGER, note TEXT, date TEXT)'), 
-    null,
-    (txObj, res) => resolve(res.rows._array),
-    (txObj, err) => console.log(err) 
+    tx.executeSql('CREATE TABLE IF NOT EXISTS Sale (id INTEGER PRIMARY KEY AUTOINCREMENT, jewelType TEXT ,jewelId INTEGER, description TEXT, gold INTEGER, weight REAL, price INTEGER, note TEXT, week INTEGER, day INTEGER, month INTEGER, year INTEGER)'),
+      null,
+      (txObj, res) => console.log(res),
+      (txObj, err) => console.log(err)
   })
 }
 
@@ -96,11 +98,11 @@ export async function deleteJewel(id) {
   })
 }
 
-export async function postSaleJewel(jewel, date) {
+export async function postSaleJewel(jewel, week, day, month, year) {
   const db = SQLite.openDatabase('Jewellery.db')
   db.transaction(tx => {
-    tx.executeSql('INSERT INTO Sale (jewelType, jewelId, description, gold, weight, price, note, date) VALUES (?,?,?,?,?,?,?,?)',
-      [jewel.jewelType, jewel.jewelId, jewel.description, jewel.gold, jewel.weight, jewel.price, jewel.note, date],
+    tx.executeSql('INSERT INTO Sale (jewelType, jewelId, description, gold, weight, price, note, week, day, month, year) VALUES (?,?,?,?,?,?,?,?,?,?,?)',
+      [jewel.jewelType, jewel.jewelId, jewel.description, jewel.gold, jewel.weight, jewel.price, jewel.note, week, day, month, year],
       (txObj, res) => console.log("POST SALE"),
       (txObj, err) => console.log(err)
     )
@@ -110,7 +112,7 @@ export async function postSaleJewel(jewel, date) {
 export async function getSaleJewel() {
   const db = SQLite.openDatabase('Jewellery.db')
   return new Promise((resolve, reject) => {
-      db.transaction(tx => {
+    db.transaction(tx => {
       tx.executeSql('SELECT * FROM Sale',
         null,
         (txObj, res) => resolve(res.rows._array),
@@ -125,7 +127,7 @@ export async function searchById(jewelId) {
   return new Promise((resolve, reject) => {
     db.transaction(tx => {
       tx.executeSql('SELECT * FROM Jewel WHERE jewelId LIKE ? ORDER BY jewelId ASC ',
-        [jewelId+"%"],
+        [jewelId + "%"],
         (txObj, res) => resolve(res.rows._array),
         (txObj, err) => console.log(err)
       )

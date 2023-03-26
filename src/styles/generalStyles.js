@@ -17,6 +17,11 @@ export default StyleSheet.create({
         borderBottomRightRadius: sizes.radius,
         height: 360,
     },
+    dropDownMenu2: {
+        backgroundColor: colors.gray,
+        borderBottomLeftRadius: sizes.radius,
+        borderBottomRightRadius: sizes.radius
+    },
     dropDownMenuButton: {
         width: 180,
         height: 50,

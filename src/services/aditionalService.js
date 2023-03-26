@@ -41,9 +41,8 @@ export function saleJewel(jewel){
     var year =  new Date(date.getFullYear(), 0, 1);
     var days =  Math.ceil((date - year) / (24 * 60 * 60 * 1000));
     var week = Math.floor(( date.getDay() + 1 + days) / 7);
-    const d = [week, date.getDate(), date.getMonth(), date.getFullYear()].toString()
 
-    postSaleJewel(jewel, [week, date.getDate(), date.getMonth(), date.getFullYear()].toString())
+    postSaleJewel(jewel, week, date.getDate(), date.getMonth(), date.getFullYear())
     deleteJewel(jewel.id)
 }
 

@@ -5,10 +5,9 @@ import generalStyles from '../styles/generalStyles';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faEdit } from '@fortawesome/free-regular-svg-icons';
 import { faDollar } from '@fortawesome/free-solid-svg-icons';
-import { deleteJewel } from '../services/jewelService';
 import { saleJewel } from '../services/aditionalService';
 
-function ListItemJewel({jewel, navigation}){
+function ListItemJewel({jewel, navigation, jewels, setJewels}){
 
 
     return (
@@ -42,7 +41,10 @@ function ListItemJewel({jewel, navigation}){
                             },
                             {
                                 text: 'OK', 
-                                onPress: () => saleJewel(jewel)
+                                onPress: () => {
+                                    saleJewel(jewel)
+                                    setJewels(jewels.filter((item)=>item.id != jewel.id))
+                                }
                             }
                         ])
                     }>
