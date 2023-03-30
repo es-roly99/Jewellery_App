@@ -1,18 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { ScrollView, View } from 'react-native';
-import generalStyles from '../styles/generalStyles';
+import { ScrollView, View, Text } from 'react-native';
 import listStyle from '../styles/listStyle';
-import ListItemSale from '../components/ListItemSale'
 import { getSaleJewel } from '../services/jewelService';
-import SelectDropdown from 'react-native-select-dropdown'
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
-import { faAngleDown, faAngleUp } from '@fortawesome/free-solid-svg-icons';
-import Separator from '../components/Separator'
-import { MONTH } from '../Constants';
 import { RefreshControl } from 'react-native-gesture-handler';
 import LoadingScreen from '../components/LoadingScreen';
 
 function Sales({ navigation }) {
+
+    const series = [123, 321, 123, 789, 537]
+    const sliceColor = ['#F44336', '#2196F3', '#FFEB3B', '#4CAF50', '#FF9800']
 
     const [data, setData] = useState([])
     const [isLoading, setIsLoading] = useState()
@@ -38,7 +34,11 @@ function Sales({ navigation }) {
                 {
                     isLoading ?
                         <LoadingScreen /> :
-                        <></>
+                        <>
+                            <View>
+                                <Text>Doughnut</Text>
+                            </View>
+                        </>
                 }
             </View>
 
