@@ -76,22 +76,22 @@ export async function postJewel(type, jewelId, description, gold, weight, price,
   })
 }
 
-export async function putJewel(id, description, gold, weight, price, note) {
+export async function putJewel(jewelId, description, gold, weight, price, note) {
   const db = SQLite.openDatabase('Jewellery.db')
   db.transaction(tx => {
-    tx.executeSql('UPDATE Jewel SET description = ?, gold = ?, weight = ?, price = ?, note = ? WHERE id = ?',
-      [description, gold, weight, price, note, id],
+    tx.executeSql('UPDATE Jewel SET description = ?, gold = ?, weight = ?, price = ?, note = ? WHERE jewelId = ?',
+      [description, gold, weight, price, note, jewelId],
       (txObj, res) => console.log("PUTED"),
       (txObj, err) => console.log(err)
     )
   })
 }
 
-export async function deleteJewel(id) {
+export async function deleteJewel(jewelId) {
   const db = SQLite.openDatabase('Jewellery.db')
   db.transaction(tx => {
-    tx.executeSql('DELETE FROM Jewel WHERE id = ?',
-      [id],
+    tx.executeSql('DELETE FROM Jewel WHERE jewelId = ?',
+      [jewelId],
       (txObj, res) => console.log("DELETED"),
       (txObj, err) => console.log(err)
     )
@@ -113,7 +113,7 @@ export async function getSaleJewel() {
   const db = SQLite.openDatabase('Jewellery.db')
   return new Promise((resolve, reject) => {
     db.transaction(tx => {
-      tx.executeSql('SELECT * FROM Sale',
+      tx.executeSql('SELECT * FROM Sale ORDER BY week DESC, day DESC',
         null,
         (txObj, res) => resolve(res.rows._array),
         (txObj, err) => console.log(err)

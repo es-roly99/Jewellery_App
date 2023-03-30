@@ -24,7 +24,7 @@ function ListItemJewel({jewel, navigation, jewels, setJewels}){
 
             <View style = {generalStyles.flexRight}>
                 <TouchableOpacity style = {generalStyles.flexCenter} 
-                    onPress ={() => navigation.navigate('JewelDetails', {jewel: jewel})}>
+                    onPress ={() => navigation.navigate('JewelDetails', {jewel: jewel, jewels:jewels})}>
                     <FontAwesomeIcon  
                         style = {Object.assign({},generalStyles.minShadow, listStyle.buttonEdit)} 
                         size= {25}

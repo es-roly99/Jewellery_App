@@ -39,11 +39,17 @@ export default StyleSheet.create({
     },
     separator:{
         height: 2,
-        backgroundColor: colors.red,
+        backgroundColor: colors.black,
         borderRadius: sizes.radius,
-        width: '100%'
-    }
-
-
+        marginHorizontal: 10,
+        flex: 1
+    },
+    separatorArea:{
+        flex: 1,
+        justifyContent: 'center',
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginTop: 8
+    },
 
 })

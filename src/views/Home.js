@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { TextInput, TouchableOpacity, Text } from 'react-native';
 import { ScrollView, View } from 'react-native';
 import generalStyles from '../styles/generalStyles';
@@ -13,7 +13,8 @@ import { searchById } from '../services/jewelService'
 import LoadingScreen from '../components/LoadingScreen';
 import { RefreshControl } from 'react-native-gesture-handler';
 
-function Home({ navigation }) {
+
+function Home({ route, navigation }) {
 
     const [jewels, setJewels] = useState([])
     const [jewelType, setJewelType] = useState()
@@ -30,10 +31,9 @@ function Home({ navigation }) {
         setSearchId("")
     }, [])
 
-    function removeJewel(id){
-        setJewels( jewels.filter((jewel) => jewel.id !== id))
-    }
-
+    useEffect(()=>{
+        if (route.params != undefined)setJewels(route.params['jewels'])
+    },[route])
 
     return (
         <ScrollView horizontal={false} style={{ width: "100%" }}>
@@ -97,7 +97,7 @@ function Home({ navigation }) {
 
                     <TouchableOpacity style={Object.assign({}, generalStyles.flexCenter, generalStyles.buttonAddJewell, generalStyles.minShadow)}
                         onPress={() => {
-                            navigation.navigate('AddJewel', { jewel: undefined })
+                            navigation.navigate('AddJewel', { jewel: undefined, jewels: jewels })
                         }}>
                         <FontAwesomeIcon
                             style={generalStyles.flexCenter} color={colors.white}
@@ -113,7 +113,7 @@ function Home({ navigation }) {
                 {
                     isLoading ?
                         <LoadingScreen /> : jewels.length != 0 ?
-                            jewels.map((item) => {return <ListItemJewel key={item.id} jewel={item} navigation={navigation} jewels={jewels} setJewels={setJewels}/>}) :
+                            jewels.map((item) => { return <ListItemJewel key={item.id} jewel={item} navigation={navigation} jewels={jewels} setJewels={setJewels} /> }) :
                             <Text style={generalStyles.text}>No hay coincidencias</Text>
 
                 }

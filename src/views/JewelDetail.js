@@ -13,10 +13,8 @@ import { getAviableId, verifyNewJewel } from '../services/aditionalService';
 
 function JewelDetail({ route, navigation }) {
 
-    const jewels = ["Anillo", "Argolla", "Dije", "Pulso", "Cadena"]
     const [aviableId, setAviableId] = useState([])
-
-    const { jewel } = route.params
+    const { jewel, jewels } = route.params
     const [jewelType, setJewelType] = useState("Seleccione Joya")
     const [id, setId] = useState()
     const [description, setDescription] = useState()
@@ -63,7 +61,7 @@ function JewelDetail({ route, navigation }) {
 
             <View style={jewelDetailStyle.viewJewelDetail}>
                 <Text>Tipo de Joya:</Text>
-                <SelectDropdown data={jewels} defaultButtonText={jewelType} ref={refDropdownJewelType}
+                <SelectDropdown data={["Anillo", "Argolla", "Dije", "Pulso", "Cadena"]} defaultButtonText={jewelType} ref={refDropdownJewelType}
                     renderDropdownIcon={isOpened => {
                         if (jewel == undefined) {
                             return <FontAwesomeIcon icon={isOpened ? faAngleUp : faAngleDown} color={'#444'} size={14} />
@@ -131,7 +129,7 @@ function JewelDetail({ route, navigation }) {
 
             <View style={jewelDetailStyle.viewJewelDetail}>
                 <Text>Peso:</Text>
-                <TextInput keyboardType="numeric" style={jewelDetailStyle.textInputDetails} value={weight}
+                <TextInput keyboardType="numeric" style={jewelDetailStyle.textInputDetails} value={weight} 
                     onChangeText={(text) => setWeight(text)}
                     editable={isJewel ? true : false}
                 />
@@ -140,14 +138,14 @@ function JewelDetail({ route, navigation }) {
             <View style={jewelDetailStyle.viewJewelDetail}>
                 <Text>Precio:</Text>
                 <TextInput keyboardType="numeric" style={jewelDetailStyle.textInputDetails} value={price}
-                    onChangeText={text => setPrice(text)}
+                    onChangeText={(text) => setPrice(text)}
                     editable={isJewel ? true : false}
                 />
             </View>
 
             <View style={jewelDetailStyle.viewJewelDetail}>
                 <Text >Nota:</Text>
-                <TextInput style={Object.assign({}, jewelDetailStyle.textInputDetails, generalStyles.shadow)} value={note}
+                <TextInput style={Object.assign({}, jewelDetailStyle.textInputDetails)} value={note}
                     onChangeText={(text) => setNote(text)}
                     editable={isJewel ? true : false}
                 />
@@ -162,15 +160,25 @@ function JewelDetail({ route, navigation }) {
 
                 <TouchableOpacity style={Object.assign({}, jewelDetailStyle.buttonSave, generalStyles.shadow, generalStyles.flexCenter)}
                     onPress={() => {
-                        const verify = verifyNewJewel(jewelType, description, price)
+                        console.log(weight)
+                        const verify = verifyNewJewel(jewelType, description, price, weight)
+                        let arr = [...jewels]
+                        let pos = 0
+                        while(arr[pos].jewelId < id) {
+                            pos ++
+                        }
                         if (verify == "") {
                             if (jewel == undefined) {
-                                postJewel(jewelType, id, description, gold, weight, price, note)
+                                postJewel(jewelType, id, description, gold, parseFloat(weight), price, note)
+                                const newJewel = {id:-1,jewelId:id,description:description,gold:gold,weight:parseFloat(weight),price:parseInt(price),note:note,jewelType:jewelType}
+                                arr.splice(pos, 0, newJewel)
                             }
                             else {
-                                putJewel(jewel.id, description, gold, weight, price, note)
+                                putJewel(jewel.jewelId, description, gold, parseFloat(weight), price, note)
+                                const newJewel = {id:jewel.id,jewelId:id,description:description,gold:gold,weight:parseInt(weight),price:parseInt(price),note:note,jewelType:jewelType}
+                                arr.splice(pos, 1, newJewel)
                             }
-                            navigation.navigate('Home')
+                            navigation.navigate('Home', {jewels: arr})
                         }
                         else {
                             Alert.alert("Error", verify, [
