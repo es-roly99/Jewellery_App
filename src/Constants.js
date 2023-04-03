@@ -3,8 +3,8 @@ const colors = {
   white: "#FFFFFF",
   gray: "#E5E5E5",
   red: "#e91e63",
-  sell: "#950b10",
-  edit: "#134611",
+  sell: "#ad2831",
+  edit: "#4cb944",
   add: "#008000",
   };
   

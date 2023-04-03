@@ -19,10 +19,12 @@
     "@react-navigation/native-stack": "^6.9.12",
     "csvtojson": "^2.0.10",
     "expo": "~48.0.6",
+    "expo-sqlite": "~11.1.1",
     "expo-status-bar": "~1.4.4",
     "react": "18.2.0",
     "react-native": "0.71.4",
     "react-native-csv": "^0.2.0",
+    "react-native-dialog-input": "^1.0.8",
     "react-native-gesture-handler": "~2.9.0",
     "react-native-image-picker": "^5.3.1",
     "react-native-reanimated": "~2.14.4",
@@ -30,8 +32,7 @@
     "react-native-screens": "~3.20.0",
     "react-native-select-dropdown": "^3.3.0",
     "react-native-sqlite-storage": "^6.0.1",
-    "react-native-svg": "13.4.0",
-    "expo-sqlite": "~11.1.1"
+    "react-native-svg": "13.4.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"

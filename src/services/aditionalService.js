@@ -1,4 +1,4 @@
-import { deleteJewel, postSaleJewel } from './jewelService' 
+import { deleteJewel, deleteOtherJewel, postSaleJewel } from './jewelService' 
 
 
 export function getAviableId(ids, range) {
@@ -36,6 +36,14 @@ export function verifyNewJewel(type, description, price, weight) {
     return err
 }
 
+export function verifyNewOtherJewel(description, price, quantity) {
+    let err = ""
+    if (description == "") err = "Introduzca la descripción"
+    else if (quantity == "") err = "Introduzca la cantidad"
+    else if (price == "") err = "Introduzca el precio"
+    return err
+}
+
 
 export function saleJewel(jewel){
     var date = new Date();
@@ -46,6 +54,23 @@ export function saleJewel(jewel){
     postSaleJewel(jewel, week, date.getDate(), date.getMonth(), date.getFullYear())
     deleteJewel(jewel.jewelId)
 }
+
+export function saleOtherJewel(jewel, quantity, actualQuantity){
+    var date = new Date();
+    var year =  new Date(date.getFullYear(), 0, 1);
+    var days =  Math.ceil((date - year) / (24 * 60 * 60 * 1000));
+    var week = Math.ceil(days / 7);
+
+    console.log(days, week)
+
+    let x = 0
+    while (x < quantity){
+        postSaleJewel(jewel, week, date.getDate(), date.getMonth(), date.getFullYear())
+        x ++
+    }
+    deleteOtherJewel(jewel.id, actualQuantity)
+}
+
 
 
 

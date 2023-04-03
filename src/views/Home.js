@@ -113,9 +113,8 @@ function Home({ route, navigation }) {
                 {
                     isLoading ?
                         <LoadingScreen /> : jewels.length != 0 ?
-                            jewels.map((item) => { return <ListItemJewel key={item.id} jewel={item} navigation={navigation} jewels={jewels} setJewels={setJewels} /> }) :
+                            jewels.map((item) => { return <ListItemJewel key={item.jewelId} jewel={item} navigation={navigation} jewels={jewels} setJewels={setJewels} /> }) :
                             <Text style={generalStyles.text}>No hay coincidencias</Text>
-
                 }
             </View>
 

@@ -6,9 +6,14 @@ export default StyleSheet.create({
     viewList: {
         padding: 10,
         marginRight: 10,
+        marginTop: 20
     },
     listItem: {
         marginBottom: 20,
+    },
+    listItem2: {
+        marginBottom: 20,
+        marginLeft: 10
     },
     textListItemId: {
         fontSize: sizes.body,
@@ -27,9 +32,19 @@ export default StyleSheet.create({
         borderRadius: 5,
         color: colors.edit
     },
+    buttonEdit2: {
+        padding: 5,
+        borderRadius: 5,
+        color: colors.edit
+    },
     buttonSell: {
         padding: 5,
         marginLeft: 20,
+        borderRadius: 5,
+        color: colors.sell, 
+    },
+    buttonSell2: {
+        padding: 5,
         borderRadius: 5,
         color: colors.sell, 
     },
@@ -51,5 +66,10 @@ export default StyleSheet.create({
         alignItems: 'center',
         marginTop: 8
     },
+    quantityJewel:{
+        textAlign: 'center', 
+        width:60, 
+        fontSize: sizes.body,
+    }
 
 })
