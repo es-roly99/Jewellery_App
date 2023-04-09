@@ -64,7 +64,8 @@ export default StyleSheet.create({
         justifyContent: 'center',
         flexDirection: 'row',
         alignItems: 'center',
-        marginTop: 8
+        marginTop: 4,
+        marginBottom: 10
     },
     quantityJewel:{
         textAlign: 'center', 

@@ -21,6 +21,13 @@ textInputDetails: {
     height: 50,
     paddingHorizontal: 10
 },
+textSalesDetails: {
+    borderRadius: sizes.radius,
+    backgroundColor: colors.lightGray,
+    height: 50,
+    paddingHorizontal: 10,
+    paddingTop: 12   
+},
 buttonCancel: {
     height: 50,
     width: '40%',

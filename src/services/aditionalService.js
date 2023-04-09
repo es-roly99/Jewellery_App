@@ -1,4 +1,5 @@
-import { deleteJewel, deleteOtherJewel, postSaleJewel } from './jewelService' 
+import { JEWELSID } from '../Constants'
+import { deleteJewel, deleteJewelsT, deleteOtherJewel, deleteOthersJewelT, deleteSaleJewel, deleteSalesT, getJewelId, getJewelJewelId, postJewel, postJewelId, postSaleJewel } from './jewelService' 
 
 
 export function getAviableId(ids, range) {
@@ -23,6 +24,11 @@ export function getAviableId(ids, range) {
             break
         }
     }
+
+    if (aviableIds.length == 0){
+        aviableIds.push(v, v+1, v+2)
+    }
+
     return aviableIds
 }
 
@@ -71,6 +77,52 @@ export function saleOtherJewel(jewel, quantity, actualQuantity){
     deleteOtherJewel(jewel.id, actualQuantity)
 }
 
+export function restoreJewel(jewel, option){
+    if(option == "borrar"){
+        saleToInventory(jewel)
+        deleteSaleJewel(jewel.id)
+    }
+    else{
+        saleToInventory(jewel)
+    }
+}
+
+export function saleToInventory(jewel){
+    if(jewel.jewelId == null) {
+        console.log(jewel.jewelId)
+    }
+    else{
+        let id = 0
+        let isJewel = []
+        getJewelJewelId(jewel.jewelId).then((j) => {
+            isJewel.concat(j)
+        })
+        if(isJewel.length != 0){
+          id = jewel.jewelId  
+        }
+        else{
+            const range = JEWELSID[jewel.jewelType]
+            getJewelId(range).then((ids) => {
+                id = parseInt(getAviableId(ids, range)[0])
+            })
+        }
+        console.log(jewel, id)
+        //postJewel(jewel.jewelType, id, jeweljewel.description, jewel.gold, jewel.weight, jewel.price, jewel.note)
+    }
+
+}
 
 
+export function importJewels(){
+console.log("asdasd")
+}
 
+export function exportJewels(){
+    
+}
+
+export function deleteJewels(){
+    // deleteJewelsT()
+    // deleteOthersJewelT()
+    // deleteSalesT()
+}

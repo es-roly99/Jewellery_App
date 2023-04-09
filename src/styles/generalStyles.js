@@ -77,6 +77,18 @@ export default StyleSheet.create({
         width: 50,
         backgroundColor: colors.add,
     },
+    buttonJewel: {
+        borderWidth: .5,
+        borderColor: colors.darkGray,
+        backgroundColor: colors.gray,
+        borderRadius: sizes.radius,
+        marginHorizontal: 20
+    },
+    viewJewel: {
+        paddingHorizontal: 10,
+        paddingVertical: 5,
+        marginVertical: 15,
+    },
     text: {
         fontSize: 18,
         padding: 5,

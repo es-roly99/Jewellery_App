@@ -4,13 +4,13 @@ import { sizes } from '../Constants';
 import generalStyles from '../styles/generalStyles';
 import listStyle from '../styles/listStyle';
 
-function Separator({ month }) {
+function Separator({ week }) {
 
     return (
-        <View style = {Object.assign({}, listStyle.separatorArea)}>
-            <View style = {listStyle.separator}/>
-           <Text style = {{fontSize: sizes.header}}>{month}</Text>
-            <View style = {listStyle.separator}/>
+        <View style={Object.assign({}, listStyle.separatorArea)}>
+            <View style={listStyle.separator} />
+            <Text style={{ fontSize: sizes.header }}>Semana {week}</Text>
+            <View style={listStyle.separator} />
         </View>
     );
 }

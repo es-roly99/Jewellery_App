@@ -28,28 +28,6 @@ function ListItemOtherJewel({ jewel, navigation, jewels, setJewels }) {
 
             <View style={generalStyles.flexRight}>
 
-            {/* <TouchableOpacity style={generalStyles.flexCenter}
-                    onPress={() =>
-                        Alert.alert("Adicionar", jewel.description + " $" + jewel.price + ".0", [
-                            {
-                                text: 'Cancelar',
-                                style: 'cancel',
-                            },
-                            {
-                                text: 'OK',
-                                onPress: () => {
-
-                                }
-                            }
-                        ])
-                    }>
-                    <FontAwesomeIcon
-                        style={Object.assign({}, generalStyles.minShadow, listStyle.buttonEdit2)}
-                        size={27}
-                        icon={faPlus}>
-                    </FontAwesomeIcon>
-                </TouchableOpacity> */}
-
                 <Text style ={listStyle.quantityJewel}>{jewel.quantity}</Text>
 
                 <DialogInput

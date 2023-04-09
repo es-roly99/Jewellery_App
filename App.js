@@ -10,12 +10,12 @@ import Sales from './src/views/Sales'
 import JewelDetail from './src/views/JewelDetail'
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { faChartSimple, faCoins, faGem, faArrowUpFromBracket, faBoxesStacked } from "@fortawesome/free-solid-svg-icons";
+import { faChartSimple, faCoins, faGem, faBoxesStacked, faGear } from "@fortawesome/free-solid-svg-icons";
 import { initDatabase } from './src/services/jewelService'
-import Export from "./src/views/Export";
 import Home2 from "./src/views/Home2";
 import OtherJewelDetail from "./src/views/OtherJewelDetail";
-
+import SaleJewelDetail from "./src/views/SaleJewelDetails";
+import Adjust from "./src/views/Adjust";
 
 export default function App() {
 
@@ -71,11 +71,11 @@ export default function App() {
             }} />
 
           <Drawer.Screen
-            component={Export}
-            name='Export'
+            component={Adjust}
+            name='Adjust'
             options={{
-              title: "Exportar", drawerIcon: ({ color, number, focused }) => {
-                return (<FontAwesomeIcon icon={faArrowUpFromBracket}></FontAwesomeIcon>)
+              title: "Ajustes", drawerIcon: ({ color, number, focused }) => {
+                return (<FontAwesomeIcon icon={faGear}></FontAwesomeIcon>)
               }
             }} />
 
@@ -94,6 +94,12 @@ export default function App() {
           <Drawer.Screen
             component={OtherJewelDetail}
             name='OtherJewelDetail'
+            options={{ title: "Detalles de Joya", drawerItemStyle: { display: "none" } }}
+          />
+
+          <Drawer.Screen
+            component={SaleJewelDetail}
+            name='SaleJewelDetails'
             options={{ title: "Detalles de Joya", drawerItemStyle: { display: "none" } }}
           />
 

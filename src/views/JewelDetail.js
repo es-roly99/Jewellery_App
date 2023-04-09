@@ -129,7 +129,7 @@ function JewelDetail({ route, navigation }) {
 
             <View style={jewelDetailStyle.viewJewelDetail}>
                 <Text>Peso:</Text>
-                <TextInput keyboardType="numeric" style={jewelDetailStyle.textInputDetails} value={weight} 
+                <TextInput keyboardType="numeric" style={jewelDetailStyle.textInputDetails} value={weight}
                     onChangeText={(text) => setWeight(text)}
                     editable={isJewel ? true : false}
                 />
@@ -160,25 +160,26 @@ function JewelDetail({ route, navigation }) {
 
                 <TouchableOpacity style={Object.assign({}, jewelDetailStyle.buttonSave, generalStyles.shadow, generalStyles.flexCenter)}
                     onPress={() => {
-                        console.log(weight)
                         const verify = verifyNewJewel(jewelType, description, price, weight)
                         let arr = [...jewels]
                         let pos = 0
-                        while(arr[pos].jewelId < id) {
-                            pos ++
+                        if (arr.length != 0) {
+                            while (arr[pos].jewelId < id) {
+                                pos++
+                            }
                         }
                         if (verify == "") {
                             if (jewel == undefined) {
                                 postJewel(jewelType, id, description, gold, parseFloat(weight), price, note)
-                                const newJewel = {id:-1,jewelId:id,description:description,gold:gold,weight:parseFloat(weight),price:parseInt(price),note:note,jewelType:jewelType}
+                                const newJewel = { id: -1, jewelId: id, description: description, gold: gold, weight: parseFloat(weight), price: parseInt(price), note: note, jewelType: jewelType }
                                 arr.splice(pos, 0, newJewel)
                             }
                             else {
                                 putJewel(jewel.jewelId, description, gold, parseFloat(weight), price, note)
-                                const newJewel = {id:jewel.id,jewelId:id,description:description,gold:gold,weight:parseInt(weight),price:parseInt(price),note:note,jewelType:jewelType}
+                                const newJewel = { id: jewel.id, jewelId: id, description: description, gold: gold, weight: parseInt(weight), price: parseInt(price), note: note, jewelType: jewelType }
                                 arr.splice(pos, 1, newJewel)
                             }
-                            navigation.navigate('Home', {jewels: arr})
+                            navigation.navigate('Home', { jewels: arr })
                         }
                         else {
                             Alert.alert("Error", verify, [

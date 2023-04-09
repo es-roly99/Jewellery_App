@@ -2,6 +2,8 @@ const colors = {
   black: "#323643",
   white: "#FFFFFF",
   gray: "#E5E5E5",
+  lightGray: "#e9e9e9",
+  darkGray: "#a9a9a9",
   red: "#e91e63",
   sell: "#ad2831",
   edit: "#4cb944",
