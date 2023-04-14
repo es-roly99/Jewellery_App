@@ -15,7 +15,7 @@ import { initDatabase } from './src/services/jewelService'
 import Home2 from "./src/views/Home2";
 import OtherJewelDetail from "./src/views/OtherJewelDetail";
 import SaleJewelDetail from "./src/views/SaleJewelDetails";
-import Adjust from "./src/views/Adjust";
+import Settings from "./src/views/Settings";
 
 export default function App() {
 
@@ -71,8 +71,8 @@ export default function App() {
             }} />
 
           <Drawer.Screen
-            component={Adjust}
-            name='Adjust'
+            component={Settings}
+            name='Settings'
             options={{
               title: "Ajustes", drawerIcon: ({ color, number, focused }) => {
                 return (<FontAwesomeIcon icon={faGear}></FontAwesomeIcon>)

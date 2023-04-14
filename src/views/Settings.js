@@ -3,9 +3,26 @@ import { TouchableOpacity, Text, Alert } from "react-native";
 import { ScrollView, View } from "react-native";
 import generalStyles from "../styles/generalStyles";
 import jewelDetailStyle from "../styles/jewelDetailStyle";
-import { importJewels, deleteJewels, exportJewels } from '../services/aditionalService'
+import { transformImportJewels, deleteJewels, exportJewels } from '../services/aditionalService'
+import * as DocumentPicker from "expo-document-picker";
 
-export default function Adjust({ route, navigation }) {
+export default function Settings({ route, navigation }) {
+
+
+  const [importedJewels, setImportedJewels] = useState()
+
+
+  async function importJewels() {
+    await transformImportJewels().then(() => {
+      Alert.alert("Importar", "Joyas importadas correctamente", [
+        {
+          text: 'Ok'
+        }
+      ])
+    })
+  }
+
+
   return (
     <ScrollView style={jewelDetailStyle.scrollViewJewelDetails}>
       <View style={generalStyles.viewJewel}>
@@ -29,7 +46,15 @@ export default function Adjust({ route, navigation }) {
             },
             {
               text: 'Borrar',
-              onPress: () => { deleteJewels() }
+              onPress: async () => {
+                await deleteJewels().then(() => {
+                  Alert.alert("Borrar", "Inventario borrado exitosamente", [
+                    {
+                      text: 'Ok'
+                    }
+                  ])
+                })
+              }
             }
           ])}>
           <Text style={generalStyles.text}>Borrar Joyas</Text>

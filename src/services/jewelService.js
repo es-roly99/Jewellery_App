@@ -3,7 +3,6 @@ import * as SQLite from "expo-sqlite";
 export function initDatabase() {
   initJewel();
   initOtherJewels();
-  const db = SQLite.openDatabase("Jewellery.db");
   initSales();
 }
 
