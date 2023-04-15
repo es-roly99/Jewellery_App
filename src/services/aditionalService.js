@@ -2,6 +2,7 @@ import { JEWELSID } from '../Constants'
 import { deleteJewel, deleteJewelsT, deleteOtherJewel, deleteOthersJewelT, deleteSaleJewel, deleteSalesT, getJewelId, getJewelJewelId, initDatabase, postJewel, postJewelId, postSaleJewel } from './jewelService'
 import { readString } from 'react-native-csv'
 
+
 export function getAviableId(ids, range) {
     let v = range[0]
     let aviableIds = []
@@ -112,31 +113,32 @@ export function saleToInventory(jewel) {
 
 }
 
-export async function transformImportJewels() {
-    const data = require('../../data/Joyas.json');
-    
-    data.Argolla.map( (argolla) => {
-        if(argolla.Descripcion != undefined){
+export async function transformImportJewels(path) {
+
+    data = require("../../data/Joyas.json")
+
+    data.Argolla.map((argolla) => {
+        if (argolla.Descripcion != undefined) {
             postJewel("Argolla", argolla.id, argolla.Descripcion, argolla.Oro, argolla.Peso, argolla.Precio, "")
         }
     })
-    data.Sortija.map( (anillo) => {
-        if(anillo.Descripcion != undefined){
+    data.Sortija.map((anillo) => {
+        if (anillo.Descripcion != undefined) {
             postJewel("Anillo", anillo.id, anillo.Descripcion, anillo.Oro, anillo.Peso, anillo.Precio, "")
         }
     })
-    data.Pulso.map( (pulso) => {
-        if(pulso.Descripcion != undefined){
+    data.Pulso.map((pulso) => {
+        if (pulso.Descripcion != undefined) {
             postJewel("Pulso", pulso.Id, pulso.Descripcion, pulso.Oro, pulso.Peso, pulso.Precio, "")
         }
     })
-    data.Cadena.map( (cadena) => {
-        if(cadena.Descripcion != undefined){
+    data.Cadena.map((cadena) => {
+        if (cadena.Descripcion != undefined) {
             postJewel("Cadena", cadena.id, cadena.Descripcion, cadena.Oro, cadena.Peso, cadena.Precio, "")
         }
     })
-    data.Dije.map( (dije) => {
-        if(dije.Descripcion != undefined){
+    data.Dije.map((dije) => {
+        if (dije.Descripcion != undefined) {
             postJewel("Dije", dije.id, dije.Descripcion, dije.Oro, dije.Peso, dije.Precio, "")
         }
     })

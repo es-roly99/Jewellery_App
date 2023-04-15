@@ -28,7 +28,7 @@ export default function App() {
   return (
     <>
       <SafeAreaView>
-        <StatusBar barStyle={'light-content'} />
+        <StatusBar barStyle={'dark-content'} />
       </SafeAreaView>
 
       <NavigationContainer style={generalStyles.area} >

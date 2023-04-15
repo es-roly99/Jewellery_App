@@ -13,7 +13,8 @@ export default function Settings({ route, navigation }) {
 
 
   async function importJewels() {
-    await transformImportJewels().then(() => {
+    //const path = await DocumentPicker.getDocumentAsync({})
+    await transformImportJewels("").then(() => {
       Alert.alert("Importar", "Joyas importadas correctamente", [
         {
           text: 'Ok'

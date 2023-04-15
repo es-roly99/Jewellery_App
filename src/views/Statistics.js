@@ -5,6 +5,7 @@ import { getSaleJewel } from '../services/jewelService';
 import { RefreshControl } from 'react-native-gesture-handler';
 import LoadingScreen from '../components/LoadingScreen';
 
+
 function Sales({ navigation }) {
 
     const series = [123, 321, 123, 789, 537]
