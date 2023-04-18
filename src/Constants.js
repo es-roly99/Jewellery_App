@@ -8,8 +8,13 @@ const colors = {
   sell: "#ad2831",
   edit: "#4cb944",
   add: "#008000",
-  };
-  
+  orangeChart: "#ffd166",
+  redChart: "#ef476f",
+  greenChart: "#06d6a0",
+  blueChart: "#118ab2",
+  darkBlueChart: "#073b4c"
+};
+
 const sizes = {
   base: 16,
   font: 14,
@@ -29,7 +34,7 @@ const JEWELS = {
   "Cadenas": "Cadena",
   "Pulsos": "Pulso",
   "Dijes": "Dije",
-  "Argollas": "Argolla" 
+  "Argollas": "Argolla"
 }
 
 const JEWELSID = {
@@ -37,7 +42,7 @@ const JEWELSID = {
   "Cadena": [900, 999],
   "Pulso": [800, 899],
   "Dije": [400, 499],
-  "Argolla": [500, 599] 
+  "Argolla": [500, 599]
 }
 
 const MONTH = {
@@ -55,5 +60,5 @@ const MONTH = {
   11: "Diciembre"
 }
 
-  
-  export { colors, sizes, JEWELS, JEWELSID, MONTH };
+
+export { colors, sizes, JEWELS, JEWELSID, MONTH };

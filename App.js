@@ -10,16 +10,20 @@ import Sales from './src/views/Sales'
 import JewelDetail from './src/views/JewelDetail'
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { faChartSimple, faCoins, faGem, faBoxesStacked, faGear } from "@fortawesome/free-solid-svg-icons";
+import { faChartSimple, faCoins, faGem, faBoxesStacked, faGear, faL } from "@fortawesome/free-solid-svg-icons";
 import { initDatabase } from './src/services/jewelService'
 import Home2 from "./src/views/Home2";
 import OtherJewelDetail from "./src/views/OtherJewelDetail";
 import SaleJewelDetail from "./src/views/SaleJewelDetails";
 import Settings from "./src/views/Settings";
+import { deleteJewels } from "./src/services/aditionalService";
 
 export default function App() {
 
   const Drawer = createDrawerNavigator();
+
+  global.isRequiredRefreshSales = true
+  global.isRequiredRefreshStatistics = true
 
   useEffect(() => {
     initDatabase()
@@ -52,6 +56,7 @@ export default function App() {
               }
             }} />
 
+
           <Drawer.Screen
             component={Sales}
             name='Sales'
@@ -61,6 +66,11 @@ export default function App() {
               }
             }} />
 
+          <Drawer.Screen
+            component={OtherJewelDetail}
+            name='OtherJewelDetail'
+            options={{ title: "Detalles de Joya", drawerItemStyle: { display: "none" } }}
+          />
           <Drawer.Screen
             component={Statistics}
             name='Statistics'
@@ -91,11 +101,7 @@ export default function App() {
             options={{ title: "Detalles de Joya", drawerItemStyle: { display: "none" } }}
           />
 
-          <Drawer.Screen
-            component={OtherJewelDetail}
-            name='OtherJewelDetail'
-            options={{ title: "Detalles de Joya", drawerItemStyle: { display: "none" } }}
-          />
+
 
           <Drawer.Screen
             component={SaleJewelDetail}

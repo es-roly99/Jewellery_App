@@ -90,11 +90,16 @@ export default StyleSheet.create({
         marginVertical: 15,
     },
     text: {
-        fontSize: 18,
+        fontSize: sizes.header,
         padding: 5,
         marginVertical: 20,
         marginHorizontal: 5
     },
+    statisticText: {
+        fontSize: sizes.header,
+        marginLeft: 5,
+
+    },  
     flexLeft: {
         display: 'flex',
         justifyContent: 'flex-start',

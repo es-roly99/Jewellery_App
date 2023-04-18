@@ -14,6 +14,7 @@ function ListItemOtherJewel({ jewel, navigation, jewels, setJewels }) {
     const [sellVisible, setSellVisible] = useState(false)
     const [quantitySell, setQuantitySell] = useState()
 
+
     return (
         <View style={Object.assign({}, listStyle.listItem2, generalStyles.flexBetween)}>
 
@@ -35,7 +36,9 @@ function ListItemOtherJewel({ jewel, navigation, jewels, setJewels }) {
                 title={"Vender"}
                 message={jewel.description+" $"+jewel.price+".0"}
                 hintInput ={"Cantidad"}
-                
+                cancelText = {"Cancelar"}
+                submitText = {"Ok"}
+
                 submitInput={ (inputText) => {
                     setQuantitySell(inputText),
                     setSellVisible(false);

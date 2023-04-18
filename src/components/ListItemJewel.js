@@ -5,7 +5,7 @@ import generalStyles from '../styles/generalStyles';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faEdit } from '@fortawesome/free-regular-svg-icons';
 import { faDollar } from '@fortawesome/free-solid-svg-icons';
-import { saleJewel } from '../services/aditionalService';
+import { saleJewel, setTrueRefreshing } from '../services/aditionalService';
 
 function ListItemJewel({ jewel, navigation, jewels, setJewels }) {
 
@@ -38,6 +38,7 @@ function ListItemJewel({ jewel, navigation, jewels, setJewels }) {
                                 onPress: () => {
                                     saleJewel(jewel)
                                     setJewels(jewels.filter((item) => item.id != jewel.id))
+                                    setTrueRefreshing()
                                 }
                             }
                         ])

@@ -148,6 +148,11 @@ export function exportJewels() {
 
 }
 
+export function setTrueRefreshing(){
+    global.isRequiredRefreshStatistics = true
+    global.isRequiredRefreshSales = true
+}
+
 export async function deleteJewels() {
     deleteJewelsT()
     deleteOthersJewelT()

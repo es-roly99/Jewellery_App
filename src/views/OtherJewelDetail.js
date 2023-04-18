@@ -1,5 +1,5 @@
-import React, { useEffect, useState, useRef } from 'react';
-import { View, Text, TouchableOpacity, Alert } from 'react-native';
+import React, { useEffect, useState, useRef, Component } from 'react';
+import { View, Text, TouchableOpacity, Alert, BackHandler } from 'react-native';
 import { ScrollView, TextInput } from 'react-native-gesture-handler';
 import jewelDetailStyle from '../styles/jewelDetailStyle';
 import generalStyles from '../styles/generalStyles';
@@ -23,7 +23,6 @@ function OtherJewelDetail({ route, navigation }) {
         setNote(jewel != undefined ? jewel.note : '')
         setQuantity(jewel != undefined ? JSON.stringify(jewel.quantity) : '')
     }, [route])
-
 
     return (
 

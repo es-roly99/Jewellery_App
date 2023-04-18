@@ -331,6 +331,34 @@ export async function deleteSalesT() {
   });
 }
 
+export async function getSalesPorcent() {
+  const db = SQLite.openDatabase("Jewellery.db");
+  return new Promise((resolve, reject) => {
+    db.transaction((tx) => {
+      tx.executeSql(
+        "SELECT SUM(price) as price, jewelType FROM Sale GROUP BY jewelType",
+        null,
+        (txObj, res) => resolve(res.rows._array),
+        (txObj, err) => console.log(err)
+      );
+    });
+  });
+}
+
+export async function getSalesMonth() {
+  const db = SQLite.openDatabase("Jewellery.db");
+  return new Promise((resolve, reject) => {
+    db.transaction((tx) => {
+      tx.executeSql(
+        "SELECT SUM(price) as price, month FROM Sale GROUP BY month",
+        null,
+        (txObj, res) => resolve(res.rows._array),
+        (txObj, err) => console.log(err)
+      );
+    });
+  });
+}
+
 // export async function create(){
 //   for (let f in Cadena){
 //     const x = Cadena[f]
