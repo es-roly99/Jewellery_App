@@ -3,8 +3,13 @@ import { TouchableOpacity, Text, Alert } from "react-native";
 import { ScrollView, View } from "react-native";
 import generalStyles from "../styles/generalStyles";
 import jewelDetailStyle from "../styles/jewelDetailStyle";
-import { transformImportJewels, deleteJewels, exportJewels, importCsv } from '../services/aditionalService'
+import { transformImportJewels, deleteJewels, importCsv, createExcel } from '../services/aditionalService'
 import * as DocumentPicker from "expo-document-picker";
+import * as Sharing from 'expo-sharing'
+import * as FileSystem from 'expo-file-system'
+import * as XLSX from 'xlsx';
+import { getJewels } from "../services/jewelService";
+
 
 export default function Settings({ route, navigation }) {
 
@@ -23,6 +28,25 @@ export default function Settings({ route, navigation }) {
     // })
     importCsv("../../data/Dije-Table1")
   }
+
+
+  async function exportJewels() {
+
+    createExcel().then((wb) => {
+      const base64 = XLSX.write(wb, { type: "base64" });
+      const filename = FileSystem.documentDirectory + "Joyas.xlsx";
+
+      FileSystem.writeAsStringAsync(filename, base64, {
+        encoding: FileSystem.EncodingType.Base64
+      }).then(() => {
+        Sharing.shareAsync(filename);
+      })
+    })
+    
+  }
+
+
+
 
 
   return (

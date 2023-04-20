@@ -18,13 +18,16 @@ function Home2({ route, navigation }) {
     const [isLoading, setIsLoading] = useState()
 
     useEffect(() => {
+       updateHome2()
+    }, [route])
+
+    function updateHome2(){
         setIsLoading(true)
         getOtherJewels("").then((jewels) => {
             setJewels(jewels)
             setIsLoading(false)
         })
-    }, [route])
-
+    }
 
     return (
         <ScrollView horizontal={false} style={{ width: "100%" }}>

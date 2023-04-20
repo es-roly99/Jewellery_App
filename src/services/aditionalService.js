@@ -1,6 +1,7 @@
 import { JEWELSID } from '../Constants'
-import { deleteJewel, deleteJewelsT, deleteOtherJewel, deleteOthersJewelT, deleteSaleJewel, deleteSalesT, getJewelId, getJewelJewelId, getOtherJewelsParams, initDatabase, postJewel, postJewelId, postOtherJewel, postOtherJewelQuantity, postSaleJewel } from './jewelService'
+import { deleteJewel, deleteJewelsT, deleteOtherJewel, deleteOthersJewelT, deleteSaleJewel, deleteSalesT, getJewelId, getJewelJewelId, getJewels, getOtherJewelsParams, initDatabase, postJewel, postJewelId, postOtherJewel, postOtherJewelQuantity, postSaleJewel } from './jewelService'
 import { readString } from 'react-native-csv'
+import * as XLSX from 'xlsx';
 
 export function getAviableId(ids, range) {
     let v = range[0]
@@ -90,7 +91,7 @@ export function restoreJewel(jewel, option) {
 export function saleToInventory(jewel) {
     if (jewel.jewelId == null) {
         getOtherJewelsParams(jewel.description, jewel.price).then((resJewel) => {
-            if(resJewel.length == 0) {
+            if (resJewel.length == 0) {
                 postOtherJewel(resJewel.description, resJewel.price, resJewel.quantity, resJewel.note)
             }
             else {
@@ -112,7 +113,7 @@ export function saleToInventory(jewel) {
             }
             postJewel(jewel.jewelType, id, jewel.description, jewel.gold, jewel.weight, jewel.price, jewel.note)
         })
-        
+
     }
 
 }
@@ -148,19 +149,80 @@ export async function transformImportJewels(path) {
     })
 }
 
-export function exportJewels() {
+export async function createExcel() {
+    let wb = XLSX.utils.book_new();
+    let model = [["id", "Descripción", "Oro", "Peso", "Precio"]]
+    return new Promise((resolve, reject) => {
+
+        getJewels("Anillo").then((data) => {
+            let sheet = [...model]
+            data.map((jewel) => {
+                sheet.push([jewel.jewelId, jewel.description, jewel.gold, jewel.weight, jewel.price])
+            })
+            const newSheet = XLSX.utils.aoa_to_sheet(sheet)
+            XLSX.utils.book_append_sheet(wb, newSheet, "Anillos", true);
+        }).then(
+            getJewels("Argolla").then((data) => {
+                let sheet = [...model]
+                data.map((jewel) => {
+                    sheet.push([jewel.jewelId, jewel.description, jewel.gold, jewel.weight, jewel.price])
+                })
+                const newSheet = XLSX.utils.aoa_to_sheet(sheet)
+                XLSX.utils.book_append_sheet(wb, newSheet, "Argollas", true);
+            })
+        ).then(
+            getJewels("Dije").then((data) => {
+                let sheet = [...model]
+                data.map((jewel) => {
+                    sheet.push([jewel.jewelId, jewel.description, jewel.gold, jewel.weight, jewel.price])
+                })
+                const newSheet = XLSX.utils.aoa_to_sheet(sheet)
+                XLSX.utils.book_append_sheet(wb, newSheet, "Dijes", true);
+            })
+        ).then(
+            getJewels("Manilla").then((data) => {
+                let sheet = [...model]
+                data.map((jewel) => {
+                    sheet.push([jewel.jewelId, jewel.description, jewel.gold, jewel.weight, jewel.price])
+                })
+                const newSheet = XLSX.utils.aoa_to_sheet(sheet)
+                XLSX.utils.book_append_sheet(wb, newSheet, "Manillas", true);
+            })
+        ).then(
+            getJewels("Cadena").then((data) => {
+                let sheet = [...model]
+                data.map((jewel) => {
+                    sheet.push([jewel.jewelId, jewel.description, jewel.gold, jewel.weight, jewel.price])
+                })
+                const newSheet = XLSX.utils.aoa_to_sheet(sheet)
+                XLSX.utils.book_append_sheet(wb, newSheet, "Cadenas", true);
+                resolve(wb);
+            })
+        )
+
+})
+
+
+    // let ws2 = XLSX.utils.aoa_to_sheet([
+    //   ["Odd*2", "Even*2", "Total"],
+    //   [{t: "n", f: "MyFirstSheet!A2*2"}, {t: "n", f: "MyFirstSheet!B2*2"}, { t: 'n', f: 'A2+B2'}],
+    //   [{t: "n", f: "MyFirstSheet!A3*2"}, {t: "n", f: "MyFirstSheet!B3*2"}, { t: 'n', f: 'A3+B3'}],
+    //   [{t: "n", f: "MyFirstSheet!A4*2"}, {t: "n", f: "MyFirstSheet!B4*2"}, { t: 'n', f: 'A4+B4'}],
+    // ]);
+
+    // XLSX.utils.book_append_sheet(wb, ws2, "MySecondSheet", true);
 
 }
 
-export function importCsv(path){
+export function importCsv(path) {
     const csv = require("csvtojson")
-    csv().fromFile(path).then((res)=>{
+    csv().fromFile(path).then((res) => {
         console.log("THIS", res)
     })
 
 }
 
-export function setTrueRefreshing(){
+export function setTrueRefreshing() {
     global.isRequiredRefreshStatistics = true
     global.isRequiredRefreshSales = true
 }

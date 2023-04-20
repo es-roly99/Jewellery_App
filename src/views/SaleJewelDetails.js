@@ -74,7 +74,7 @@ function SaleJewelDetail({ route, navigation }) {
             </TouchableOpacity>
             <TouchableOpacity style={Object.assign({}, jewelDetailStyle.buttonSave, generalStyles.shadow, generalStyles.flexCenter)}
                     onPress={() => {
-                        Alert.alert("Restaurar", "Desea conservar esta joya en el inventario?", [
+                        Alert.alert("Restaurar", "Desea conservar esta joya en las ventas?", [
                             {
                                 text: 'Cancelar',
                                 style: 'cancel',
