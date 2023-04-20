@@ -80,14 +80,14 @@ function SaleJewelDetail({ route, navigation }) {
                                 style: 'cancel',
                             },
                             {
-                                text: 'Conservar',
+                                text: 'Si',
                                 onPress: () => {
                                     restoreJewel(jewel, "conservar")
                                     navigation.navigate('Sales')
                                 }
                             },
                             {
-                                text: 'Borrar',
+                                text: 'No',
                                 onPress: () => {
                                     restoreJewel(jewel, "borrar")
                                     navigation.navigate('Sales')

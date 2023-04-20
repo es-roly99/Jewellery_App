@@ -3,7 +3,7 @@ import { TouchableOpacity, Text, Alert } from "react-native";
 import { ScrollView, View } from "react-native";
 import generalStyles from "../styles/generalStyles";
 import jewelDetailStyle from "../styles/jewelDetailStyle";
-import { transformImportJewels, deleteJewels, exportJewels } from '../services/aditionalService'
+import { transformImportJewels, deleteJewels, exportJewels, importCsv } from '../services/aditionalService'
 import * as DocumentPicker from "expo-document-picker";
 
 export default function Settings({ route, navigation }) {
@@ -14,13 +14,14 @@ export default function Settings({ route, navigation }) {
 
   async function importJewels() {
     //const path = await DocumentPicker.getDocumentAsync({})
-    await transformImportJewels("").then(() => {
-      Alert.alert("Importar", "Joyas importadas correctamente", [
-        {
-          text: 'Ok'
-        }
-      ])
-    })
+    // await transformImportJewels("").then(() => {
+    //   Alert.alert("Importar", "Joyas importadas correctamente", [
+    //     {
+    //       text: 'Ok'
+    //     }
+    //   ])
+    // })
+    importCsv("../../data/Dije-Table1")
   }
 
 

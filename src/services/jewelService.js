@@ -108,6 +108,20 @@ export async function getJewelJewelId(jewelId) {
   });
 }
 
+export async function getOtherJewelsParams(description, price) {
+  const db = SQLite.openDatabase("Jewellery.db");
+  return new Promise((resolve, reject) => {
+    db.transaction((tx) => {
+      tx.executeSql(
+        "SELECT * from OtherJewel WHERE description = ? AND price = ?",
+        [description, price],
+        (txObj, res) => resolve(res.rows._array),
+        (txObj, err) => console.log(err)
+      );
+    });
+  });
+}
+
 export async function postJewel(
   type,
   jewelId,
@@ -174,6 +188,18 @@ export async function postOtherJewel(description, price, quantity, note) {
     tx.executeSql(
       "INSERT INTO OtherJewel (description, quantity, price, note) VALUES (?,?,?,?)",
       [description, quantity, price, note],
+      (txObj, res) => console.log("POSTED"),
+      (txObj, err) => console.log(err)
+    );
+  });
+}
+
+export async function postOtherJewelQuantity(id, quantity) {
+  const db = SQLite.openDatabase("Jewellery.db");
+  db.transaction((tx) => {
+    tx.executeSql(
+      "UPDATE OtherJewel SET quantity = ? WHERE id = ?",
+      [quantity, id],
       (txObj, res) => console.log("POSTED"),
       (txObj, err) => console.log(err)
     );

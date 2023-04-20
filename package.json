@@ -17,6 +17,7 @@
     "@react-navigation/drawer": "^6.6.2",
     "@react-navigation/native": "^6.1.6",
     "@react-navigation/native-stack": "^6.9.12",
+    "@types/react": "~18.0.27",
     "csvtojson": "^2.0.10",
     "expo": "~48.0.6",
     "expo-document-picker": "~11.2.2",
@@ -38,7 +39,8 @@
     "react-native-select-dropdown": "^3.3.0",
     "react-native-sqlite-storage": "^6.0.1",
     "react-native-svg": "13.4.0",
-    "rn-nodeify": "^10.3.0"
+    "rn-nodeify": "^10.3.0",
+    "typescript": "^4.9.4"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

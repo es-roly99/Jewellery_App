@@ -29,27 +29,37 @@ function ListItemOtherJewel({ jewel, navigation, jewels, setJewels }) {
 
             <View style={generalStyles.flexRight}>
 
-                <Text style ={listStyle.quantityJewel}>{jewel.quantity}</Text>
+                <Text style={listStyle.quantityJewel}>{jewel.quantity}</Text>
 
                 <DialogInput
-                isDialogVisible={sellVisible}
-                title={"Vender"}
-                message={jewel.description+" $"+jewel.price+".0"}
-                hintInput ={"Cantidad"}
-                cancelText = {"Cancelar"}
-                submitText = {"Ok"}
+                    isDialogVisible={sellVisible}
+                    title={"Vender"}
+                    message={jewel.description + " $" + jewel.price + ".0"}
+                    hintInput={"Cantidad"}
+                    cancelText={"Cancelar"}
+                    submitText={"Ok"}
 
-                submitInput={ (inputText) => {
-                    setQuantitySell(inputText),
-                    setSellVisible(false);
-                    const actualQuanitty = jewel.quantity - inputText
-                    saleOtherJewel(jewel, inputText, actualQuanitty)
-                    getOtherJewels("").then((jewels) => {
-                        setJewels(jewels)
-                    })
-                }}
-                closeDialog={() => setSellVisible(false)}>
-            </DialogInput>
+                    submitInput={(inputText) => {
+                        if (inputText <= jewel.quantity) {
+                            setQuantitySell(inputText),
+                                setSellVisible(false);
+                            const actualQuanitty = jewel.quantity - inputText
+                            saleOtherJewel(jewel, inputText, actualQuanitty)
+                            getOtherJewels("").then((jewels) => {
+                                setJewels(jewels)
+                            })
+                        }
+                        else {
+                            Alert.alert("Error", "Introduzca una cantidad adecuada", [
+                                {
+                                    text: 'Ok',
+                                    style: 'cancel',
+                                }
+                            ])
+                        }
+                    }}
+                    closeDialog={() => setSellVisible(false)}>
+                </DialogInput>
 
                 <TouchableOpacity style={generalStyles.flexCenter} onPress={() => setSellVisible(true)}>
                     <FontAwesomeIcon

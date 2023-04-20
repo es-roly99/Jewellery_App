@@ -1,7 +1,6 @@
 import { JEWELSID } from '../Constants'
-import { deleteJewel, deleteJewelsT, deleteOtherJewel, deleteOthersJewelT, deleteSaleJewel, deleteSalesT, getJewelId, getJewelJewelId, initDatabase, postJewel, postJewelId, postSaleJewel } from './jewelService'
+import { deleteJewel, deleteJewelsT, deleteOtherJewel, deleteOthersJewelT, deleteSaleJewel, deleteSalesT, getJewelId, getJewelJewelId, getOtherJewelsParams, initDatabase, postJewel, postJewelId, postOtherJewel, postOtherJewelQuantity, postSaleJewel } from './jewelService'
 import { readString } from 'react-native-csv'
-
 
 export function getAviableId(ids, range) {
     let v = range[0]
@@ -90,25 +89,30 @@ export function restoreJewel(jewel, option) {
 
 export function saleToInventory(jewel) {
     if (jewel.jewelId == null) {
-        console.log(jewel.jewelId)
+        getOtherJewelsParams(jewel.description, jewel.price).then((resJewel) => {
+            if(resJewel.length == 0) {
+                postOtherJewel(resJewel.description, resJewel.price, resJewel.quantity, resJewel.note)
+            }
+            else {
+                postOtherJewelQuantity(resJewel[0].id, resJewel[0].quantity + 1)
+            }
+        })
     }
     else {
         let id = 0
-        let isJewel = []
-        getJewelJewelId(jewel.jewelId).then((j) => {
-            isJewel.concat(j)
+        getJewelJewelId(jewel.jewelId).then((resJewel) => {
+            if (resJewel.length == 0) {
+                id = jewel.jewelId
+            }
+            else {
+                const range = JEWELSID[jewel.jewelType]
+                getJewelId(range).then((ids) => {
+                    id = parseInt(getAviableId(ids, range)[0])
+                })
+            }
+            postJewel(jewel.jewelType, id, jewel.description, jewel.gold, jewel.weight, jewel.price, jewel.note)
         })
-        if (isJewel.length != 0) {
-            id = jewel.jewelId
-        }
-        else {
-            const range = JEWELSID[jewel.jewelType]
-            getJewelId(range).then((ids) => {
-                id = parseInt(getAviableId(ids, range)[0])
-            })
-        }
-        console.log(jewel, id)
-        //postJewel(jewel.jewelType, id, jeweljewel.description, jewel.gold, jewel.weight, jewel.price, jewel.note)
+        
     }
 
 }
@@ -145,6 +149,14 @@ export async function transformImportJewels(path) {
 }
 
 export function exportJewels() {
+
+}
+
+export function importCsv(path){
+    const csv = require("csvtojson")
+    csv().fromFile(path).then((res)=>{
+        console.log("THIS", res)
+    })
 
 }
 

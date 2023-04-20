@@ -53,8 +53,11 @@ function Home2({ route, navigation }) {
                 {
                     isLoading ?
                         <LoadingScreen /> : jewels.length != 0 ?
-                            jewels.map((item) => { return <ListItemOtherJewel key={item.id} jewel={item} navigation={navigation} jewels={jewels} setJewels={setJewels} /> }) :
-                            <Text style={generalStyles.text}>No hay coincidencias</Text>
+                            jewels.map((item) => { 
+                                if(item.quantity > 0) { 
+                                    return<ListItemOtherJewel key={item.id} jewel={item} navigation={navigation} jewels={jewels} setJewels={setJewels} /> } 
+                                }):
+                            <Text style={generalStyles.text}>No hay Joyas que mostrar.</Text>
 
                 }
             </View>
