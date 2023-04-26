@@ -17,6 +17,7 @@ import OtherJewelDetail from "./src/views/OtherJewelDetail";
 import SaleJewelDetail from "./src/views/SaleJewelDetails";
 import Settings from "./src/views/Settings";
 import { deleteJewels } from "./src/services/aditionalService";
+import { colors } from "./src/Constants";
 
 export default function App() {
 
@@ -36,7 +37,13 @@ export default function App() {
       </SafeAreaView>
 
       <NavigationContainer style={generalStyles.area} >
-        <Drawer.Navigator initialRouteName='Home' >
+        <Drawer.Navigator initialRouteName='Home' screenOptions={{
+          drawerActiveTintColor: colors.red,
+          drawerStyle: {
+            drawerActiveBackgroundColor: '#222222'
+          },
+        }}
+        >
 
           <Drawer.Screen
             component={Home}
@@ -109,11 +116,13 @@ export default function App() {
             options={{ title: "Detalles de Joya", drawerItemStyle: { display: "none" } }}
           />
 
+
           <Drawer.Screen
             component={OtherJewelDetail}
             name='AddOtherJewel'
             options={{ title: "Añadir Joya", drawerItemStyle: { display: "none" } }}
           />
+
 
         </Drawer.Navigator>
       </NavigationContainer>

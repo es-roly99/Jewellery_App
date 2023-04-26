@@ -1,7 +1,8 @@
 import { JEWELSID } from '../Constants'
 import { deleteJewel, deleteJewelsT, deleteOtherJewel, deleteOthersJewelT, deleteSaleJewel, deleteSalesT, getJewelId, getJewelJewelId, getJewels, getOtherJewelsParams, initDatabase, postJewel, postJewelId, postOtherJewel, postOtherJewelQuantity, postSaleJewel } from './jewelService'
 import { readString } from 'react-native-csv'
-import * as XLSX from 'xlsx';
+import XLSX from 'xlsx' 
+
 
 export function getAviableId(ids, range) {
     let v = range[0]
@@ -119,34 +120,44 @@ export function saleToInventory(jewel) {
 }
 
 export async function transformImportJewels(path) {
+    console.log(path)
+    // const workbook = new excel.Workbook();
+    //await workbook.xlsx.readFile(path);
+    const a =  XLSX.read(path)
+    const wb = readString(path)
+    console.log(wb)
+    console.log(a)
 
-    data = require("../../data/Joyas.json")
 
-    data.Argolla.map((argolla) => {
-        if (argolla.Descripcion != undefined) {
-            postJewel("Argolla", argolla.id, argolla.Descripcion, argolla.Oro, argolla.Peso, argolla.Precio, "")
-        }
-    })
-    data.Sortija.map((anillo) => {
-        if (anillo.Descripcion != undefined) {
-            postJewel("Anillo", anillo.id, anillo.Descripcion, anillo.Oro, anillo.Peso, anillo.Precio, "")
-        }
-    })
-    data.Pulso.map((pulso) => {
-        if (pulso.Descripcion != undefined) {
-            postJewel("Pulso", pulso.Id, pulso.Descripcion, pulso.Oro, pulso.Peso, pulso.Precio, "")
-        }
-    })
-    data.Cadena.map((cadena) => {
-        if (cadena.Descripcion != undefined) {
-            postJewel("Cadena", cadena.id, cadena.Descripcion, cadena.Oro, cadena.Peso, cadena.Precio, "")
-        }
-    })
-    data.Dije.map((dije) => {
-        if (dije.Descripcion != undefined) {
-            postJewel("Dije", dije.id, dije.Descripcion, dije.Oro, dije.Peso, dije.Precio, "")
-        }
-    })
+
+
+    // data = require("../../data/Joyas.json")
+
+    // data.Argolla.map((argolla) => {
+    //     if (argolla.Descripcion != undefined) {
+    //         postJewel("Argolla", argolla.id, argolla.Descripcion, argolla.Oro, argolla.Peso, argolla.Precio, "")
+    //     }
+    // })
+    // data.Sortija.map((anillo) => {
+    //     if (anillo.Descripcion != undefined) {
+    //         postJewel("Anillo", anillo.id, anillo.Descripcion, anillo.Oro, anillo.Peso, anillo.Precio, "")
+    //     }
+    // })
+    // data.Pulso.map((pulso) => {
+    //     if (pulso.Descripcion != undefined) {
+    //         postJewel("Pulso", pulso.Id, pulso.Descripcion, pulso.Oro, pulso.Peso, pulso.Precio, "")
+    //     }
+    // })
+    // data.Cadena.map((cadena) => {
+    //     if (cadena.Descripcion != undefined) {
+    //         postJewel("Cadena", cadena.id, cadena.Descripcion, cadena.Oro, cadena.Peso, cadena.Precio, "")
+    //     }
+    // })
+    // data.Dije.map((dije) => {
+    //     if (dije.Descripcion != undefined) {
+    //         postJewel("Dije", dije.id, dije.Descripcion, dije.Oro, dije.Peso, dije.Precio, "")
+    //     }
+    // })
 }
 
 export async function createExcel() {

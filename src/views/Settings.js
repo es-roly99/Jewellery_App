@@ -8,46 +8,31 @@ import * as DocumentPicker from "expo-document-picker";
 import * as Sharing from 'expo-sharing'
 import * as FileSystem from 'expo-file-system'
 import * as XLSX from 'xlsx';
-import { getJewels } from "../services/jewelService";
 
 
 export default function Settings({ route, navigation }) {
 
-
   const [importedJewels, setImportedJewels] = useState()
 
-
   async function importJewels() {
-    //const path = await DocumentPicker.getDocumentAsync({})
-    // await transformImportJewels("").then(() => {
-    //   Alert.alert("Importar", "Joyas importadas correctamente", [
-    //     {
-    //       text: 'Ok'
-    //     }
-    //   ])
-    // })
-    importCsv("../../data/Dije-Table1")
+    const path2 = await DocumentPicker.getDocumentAsync({})
+    const path = "../../data/Argolla-Table1.csv"
+    const x = FileSystem.readAsStringAsync(path2.uri)
+    console.log(x)
+    transformImportJewels(path)
   }
 
-
   async function exportJewels() {
-
     createExcel().then((wb) => {
       const base64 = XLSX.write(wb, { type: "base64" });
       const filename = FileSystem.documentDirectory + "Joyas.xlsx";
-
       FileSystem.writeAsStringAsync(filename, base64, {
         encoding: FileSystem.EncodingType.Base64
       }).then(() => {
         Sharing.shareAsync(filename);
       })
     })
-    
   }
-
-
-
-
 
   return (
     <ScrollView style={jewelDetailStyle.scrollViewJewelDetails}>

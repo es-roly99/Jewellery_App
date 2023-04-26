@@ -9,7 +9,7 @@ import { getAviableId, verifyNewJewel, verifyNewOtherJewel } from '../services/a
 
 function OtherJewelDetail({ route, navigation }) {
 
-    const { jewel, jewels } = route.params
+    const { jewel, jewels } = route.params != undefined ? route.params : []
     const [description, setDescription] = useState()
     const [price, setPrice] = useState()
     const [note, setNote] = useState()
@@ -25,7 +25,6 @@ function OtherJewelDetail({ route, navigation }) {
     }, [route])
 
     return (
-
         <ScrollView style={jewelDetailStyle.scrollViewJewelDetails}>
 
             <View style={jewelDetailStyle.viewJewelDetail}>
